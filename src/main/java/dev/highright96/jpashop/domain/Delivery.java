@@ -13,12 +13,12 @@ public class Delivery {
     @Column(name = "delivery_id")
     private Long id;
 
-    @OneToOne(mappedBy = "delivery")
+    @OneToOne(mappedBy = "delivery", fetch = FetchType.LAZY)
     private Order order;
 
     @Embedded
     private Address address;
 
-    @Enumerated(EnumType.STRING) // 기본으로 ORDINAL (숫자) 을 사용하므로, STRING 으로 바꿔줘야함
+    @Enumerated(EnumType.STRING) // ENUM 사용 시 기본으로 ORDINAL (숫자) 을 사용하므로, STRING 으로 바꿔줘야함
     private DeliveryStatus deliveryStatus;
 }

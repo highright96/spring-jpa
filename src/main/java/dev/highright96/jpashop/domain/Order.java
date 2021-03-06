@@ -1,6 +1,8 @@
 package dev.highright96.jpashop.domain;
 
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -11,6 +13,7 @@ import java.util.List;
 @Entity
 @Table(name = "orders")
 @Getter @Setter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Order {
 
     @Id @GeneratedValue
@@ -37,11 +40,8 @@ public class Order {
 
     /*
     ==연관관계 메서드==//
-    양방향 관계일때 사용
-    연관관계 메서드의 위치는 양쪽중에 핵심적으로 컨트롤하는쪽
-    아래와 같은 역활을 수행
-    member.getOrders().add(order);
-    order.setMember(member);
+    양방향 관계일때 사용, 연관관계 메서드의 위치는 양쪽중에 핵심적으로 컨트롤하는쪽, 아래와 같은 역활을 수행
+    member.getOrders().add(order);, order.setMember(member);
     */
     public void setMember(Member member){
         this.member = member;
@@ -58,4 +58,33 @@ public class Order {
         delivery.setOrder(this);
     }
 
+    //==생성 메서드==//
+    public static Order createOrder(Member member, Delivery delivery, OrderItem... orderItems){
+        Order order = new Order();
+        order.setMember(member);
+        order.setDelivery(delivery);
+        for(OrderItem orderItem : orderItems){
+            order.setOrderItem(orderItem);
+        }
+        order.setStatus(OrderStatus.ORDER);
+        order.setDate(LocalDateTime.now());
+        return order;
+    }
+
+    //==비즈니스 로직==//
+    public void cancel(){
+        if(delivery.getDeliveryStatus() == DeliveryStatus.COMP){
+            throw new IllegalStateException("이미 배송완료된 상품은 취소가 불가능합니다.");
+        }
+        this.setStatus(OrderStatus.CANCEL);
+        orderItems.forEach(OrderItem::cancel);
+    }
+
+    //==조회 로직==/
+    /**
+     * 전체 주문 가격 조회
+     */
+    public int getTotalPrice(){
+        return orderItems.stream().mapToInt(OrderItem::getTotalPrice).sum();
+    }
 }

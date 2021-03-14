@@ -8,9 +8,12 @@ import dev.highright96.jpashop.domain.item.Item;
 import dev.highright96.jpashop.repository.ItemRepository;
 import dev.highright96.jpashop.repository.MemberRepository;
 import dev.highright96.jpashop.repository.OrderRepository;
+import dev.highright96.jpashop.repository.OrderSearch;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -52,5 +55,9 @@ public class OrderService {
         Order order = orderRepository.findOne(orderId);
         // JPA 의 강점, UPDATE SQL 작성이 필요없다. 트랜잭션 내의 엔티티 변화를 감지해 JPA 가 UPDATE 를 DB에 날려준다,
         order.cancel();
+    }
+
+    public List<Order> findOrders(OrderSearch orderSearch){
+        return orderRepository.findAllByCriteria(orderSearch);
     }
 }

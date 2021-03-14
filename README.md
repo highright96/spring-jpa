@@ -22,6 +22,7 @@ JPA 학습 및 실습 (Spring boot & JPA로 구현한 쇼핑몰 웹 애플리케
 * Java11
 * Gradle
 * JPA
+* H2
 
 <br/>
 

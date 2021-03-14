@@ -16,8 +16,20 @@ public class ItemService {
     private final ItemRepository itemRepository;
     
     @Transactional //가까운 transactional 이 우선권을 갖는다.
-    public void save(Item item){
+    public void saveItem(Item item){
         itemRepository.save(item);
+    }
+
+    @Transactional
+    public void updateItem(Long itemId, String name, int price, int stockQuantity){
+        Item findItem = itemRepository.findOne(itemId);
+        /*
+        * 1. setter 은 사용하지 않는 것이 좋다.
+        * 2. 이와 같은 변경은 setter 대신 Item 클래스 파일에 메서드를 만들어주는 편이 유지보수에 좋다.
+        */
+        findItem.setName(name);
+        findItem.setPrice(price);
+        findItem.setStockQuantity(stockQuantity);
     }
 
     public List<Item> findItems(){

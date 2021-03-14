@@ -4,6 +4,7 @@ import dev.highright96.jpashop.domain.Address;
 import dev.highright96.jpashop.domain.Member;
 import dev.highright96.jpashop.service.MemberService;
 import lombok.RequiredArgsConstructor;
+import lombok.ToString;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
 
+@ToString
 @Controller
 @RequiredArgsConstructor
 public class MemberController {
@@ -39,5 +41,11 @@ public class MemberController {
 
         memberService.join(member);
         return "redirect:/";
+    }
+
+    @GetMapping("/members")
+    public String list(Model model){
+        model.addAttribute("members", memberService.findMembers());
+        return "members/memberList";
     }
 }

@@ -1,4 +1,4 @@
-package dev.highright96.jpashop;
+package dev.highright96;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

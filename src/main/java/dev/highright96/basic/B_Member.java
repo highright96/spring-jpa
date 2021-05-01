@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @Setter
-public class BB_Member {
+public class B_Member {
     @Id @GeneratedValue
     //@GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

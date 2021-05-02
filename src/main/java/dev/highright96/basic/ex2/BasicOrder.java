@@ -1,39 +1,45 @@
-package dev.highright96.basic.domain;
+package dev.highright96.basic.ex2;
 
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
-@Getter @Setter
+@Getter
+@Setter
 public class BasicOrder {
-
     @Id
     @GeneratedValue
     @Column(name = "ORDER_ID")
     private Long id;
 
-    //@Column(name = "MEMBER_ID")
-    //private Long memberId;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "MEMBER_ID")
     private BasicMember basicMember;
 
-    private LocalDateTime orderDate; //ORDER_DATE, order_date
+    private LocalDateTime orderDate;
 
     @Enumerated(EnumType.STRING)
     private BasicOrderStatus status;
 
-    public void changeBasicMember(BasicMember basicMember) {
+    @OneToMany(mappedBy = "basicOrder")
+    List<BasicOrderItem> orderItems = new ArrayList<>();
 
-        if(this.basicMember != null){
+    public void changeBasicMember(BasicMember basicMember) {
+        if (this.basicMember != null) {
             basicMember.getOrders().remove(this);
         }
 
         this.basicMember = basicMember;
         basicMember.getOrders().add(this);
+    }
+
+    public void addBasicOrderItem(BasicOrderItem basicOrderItem) {
+        orderItems.add(basicOrderItem);
+        basicOrderItem.setBasicOrder(this);
     }
 }

@@ -1,4 +1,4 @@
-package dev.highright96.basic.domain;
+package dev.highright96.basic.ex2;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -13,10 +13,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
-@Getter @Setter
+@Getter
+@Setter
 public class BasicMember {
 
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue
     @Column(name = "MEMBER_ID")
     private Long id;
 
@@ -25,7 +27,8 @@ public class BasicMember {
 
     @Column(length = 10) //이와 같이 제약 조건은 사용하는 것이 좋다.
     private String name;
-    private String city;
-    private String street;
-    private String zipcode;
+
+    @OneToOne
+    @JoinColumn(name = "DELIVERY_ID")
+    private BasicDelivery basicDelivery;
 }

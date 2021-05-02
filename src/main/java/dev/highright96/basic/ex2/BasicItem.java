@@ -1,12 +1,9 @@
-package dev.highright96.basic.domain;
+package dev.highright96.basic.ex2;
 
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @Getter @Setter
@@ -17,5 +14,4 @@ public class BasicItem {
     private String name;
     private Integer price;
     private Integer stockQuantity;
-
 }

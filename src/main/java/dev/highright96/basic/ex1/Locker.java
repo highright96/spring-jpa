@@ -1,0 +1,17 @@
+package dev.highright96.basic.ex1;
+
+import javax.persistence.*;
+
+@Entity
+public class Locker {
+
+    @Id
+    @GeneratedValue
+    @Column(name = "LOCKER_ID")
+    private Long id;
+
+    @OneToOne(mappedBy = "locker")
+    private User user;
+
+
+}

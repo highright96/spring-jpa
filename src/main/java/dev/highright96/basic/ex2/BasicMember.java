@@ -15,7 +15,7 @@ import javax.persistence.Id;
 @Entity
 @Getter
 @Setter
-public class BasicMember {
+public class BasicMember extends BasicBaseEntity {
 
     @Id
     @GeneratedValue

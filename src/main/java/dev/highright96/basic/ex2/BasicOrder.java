@@ -11,7 +11,7 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-public class BasicOrder {
+public class BasicOrder extends BasicBaseEntity{
     @Id
     @GeneratedValue
     @Column(name = "ORDER_ID")

@@ -13,7 +13,8 @@ spring:
         show_sql: true
         format_sql: true
 
-logging:
-  level:
-    org.hibernate.SQL: debug  # log
-    org.hibernate.type: trace # query 의 파라미터 로깅
+
+#logging:
+#  level:
+#    org.hibernate.SQL: debug  # log
+#    org.hibernate.type: trace # query 의 파라미터 로깅

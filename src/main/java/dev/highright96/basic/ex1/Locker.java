@@ -3,7 +3,7 @@ package dev.highright96.basic.ex1;
 import javax.persistence.*;
 
 @Entity
-public class Locker {
+public class Locker extends BaseEntity {
 
     @Id
     @GeneratedValue

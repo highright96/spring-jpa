@@ -6,9 +6,13 @@ import lombok.Setter;
 import javax.persistence.*;
 
 @Entity
-@Getter @Setter
-public class BasicItem {
-    @Id @GeneratedValue
+@Getter
+@Setter
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn
+public class BasicItem extends BasicBaseEntity{
+    @Id
+    @GeneratedValue
     @Column(name = "ITEM_ID")
     private Long Id;
     private String name;

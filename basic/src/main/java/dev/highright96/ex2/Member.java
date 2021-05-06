@@ -27,8 +27,4 @@ public class Member extends BaseEntity {
 
     @Column(length = 10) //이와 같이 제약 조건은 사용하는 것이 좋다.
     private String name;
-
-    @OneToOne
-    @JoinColumn(name = "DELIVERY_ID")
-    private Delivery delivery;
 }

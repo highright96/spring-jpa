@@ -16,6 +16,6 @@ public class Delivery {
     @Enumerated(EnumType.STRING)
     private DeliveryStatus status;
 
-    @OneToOne(mappedBy = "delivery")
-    private Member member;
+    @OneToOne(mappedBy = "delivery", fetch = FetchType.LAZY)
+    private Orders orders;
 }

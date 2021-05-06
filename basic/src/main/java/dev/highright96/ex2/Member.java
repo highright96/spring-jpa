@@ -2,8 +2,10 @@ package dev.highright96.ex2;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.apache.tomcat.jni.Local;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,4 +29,21 @@ public class Member extends BaseEntity {
 
     @Column(length = 10) //이와 같이 제약 조건은 사용하는 것이 좋다.
     private String name;
+
+    //기간 Period
+    @Embedded
+    private Period period;
+
+    //집 주소
+    @Embedded
+    private Address homeAddress;
+
+    //직장 주소
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "city", column = @Column(name = "work_city")),
+            @AttributeOverride(name = "street", column = @Column(name = "work_street")),
+            @AttributeOverride(name = "zipcode", column = @Column(name = "work_zipcode"))
+    })
+    private Address workAddress;
 }

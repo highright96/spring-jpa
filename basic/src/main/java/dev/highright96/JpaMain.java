@@ -11,6 +11,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import java.util.List;
+import java.util.Set;
 
 public class JpaMain {
     public static void main(String[] args) {
@@ -21,6 +22,46 @@ public class JpaMain {
         tx.begin();
         try {
 
+            Member member = new Member();
+            member.setName("member1");
+            member.setHomeAddress(new Address("homeCity", "street", "10000"));
+
+            member.getFavoriteFoods().add("치킨");
+            member.getFavoriteFoods().add("족발");
+            member.getFavoriteFoods().add("피자");
+
+            member.getAddressHistory().add(new Address("old1", "street1", "10000"));
+            member.getAddressHistory().add(new Address("old2", "street2", "10000"));
+
+            em.persist(member);
+
+            em.flush();
+            em.clear();
+
+            System.out.println("===============start1===============");
+            Member findMember = em.find(Member.class, member.getId());
+            
+            /*
+            값 타입 컬렉션 조회
+            컬렉션은 지연로딩
+             */
+            List<Address> addressHistory = findMember.getAddressHistory();
+            addressHistory.forEach(v -> System.out.println(v + " "));
+            Set<String> favoriteFoods = findMember.getFavoriteFoods();
+            favoriteFoods.forEach(v -> System.out.println(v + " "));
+
+            /*
+            값 타입 컬렉션 수정
+             */
+            findMember.getFavoriteFoods().remove("치킨");
+            findMember.getFavoriteFoods().add("한식");
+
+            /*
+             equals 로 찾아서 제거해준다. *override 필수
+             addressHistory 테이블을 memberId 의 모든 행을 삭제한 후 다시 insert
+             */
+            findMember.getAddressHistory().remove(new Address("old1", "street1", "10000"));
+            findMember.getAddressHistory().add(new Address("newCity1", "street1", "10000"));
 
             tx.commit();
         } catch (Exception e) {

@@ -18,4 +18,6 @@ public class User extends BaseEntity {
     @OneToOne
     @JoinColumn(name = "LOCKER_ID")
     private Locker locker;
+
+
 }

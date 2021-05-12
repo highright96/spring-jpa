@@ -11,6 +11,7 @@
         <class>dev.highright96.ex2.Item</class>
         <class>dev.highright96.ex2.Member</class>
         <class>dev.highright96.ex2.Movie</class>
+        <class>dev.highright96.ex2.AddressEntity</class>
         <class>dev.highright96.ex2.Orders</class>
         <class>dev.highright96.ex2.OrderItem</class>
         <class>dev.highright96.ex2.OrderStatus</class>

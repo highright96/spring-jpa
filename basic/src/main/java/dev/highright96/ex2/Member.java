@@ -17,7 +17,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
-@Getter`
+@Getter
 @Setter
 public class Member extends BaseEntity {
 
@@ -47,16 +47,23 @@ public class Member extends BaseEntity {
             @AttributeOverride(name = "street", column = @Column(name = "work_street")),
             @AttributeOverride(name = "zipcode", column = @Column(name = "work_zipcode"))
     })
-
     private Address workAddress;
+
 
     @ElementCollection
     @CollectionTable(name = "FAVORITE_FOOD", joinColumns = @JoinColumn(name = "MEMBER_ID"))
     @Column(name = "FOOD_NAME")
     private Set<String> favoriteFoods = new HashSet<>();
 
+    /*
+    복잡한 관계는 갑 타입보다 일대다 관계(엔티티 매핑)를 추천
+
     @ElementCollection
     @CollectionTable(name = "ADDRESS_HISTORY", joinColumns = @JoinColumn(name = "MEMBER_ID"))
     private List<Address> addressHistory = new ArrayList<>();
+    */
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true) //일대다 단반향 매핑
+    @JoinColumn(name = "MEMBER_ID")
+    private List<AddressEntity> addressHistory = new ArrayList<>();
 
 }

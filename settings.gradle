@@ -1,4 +1,5 @@
 rootProject.name = 'jpashop'
 include 'advanced'
 include 'basic'
+include 'jpql'
 

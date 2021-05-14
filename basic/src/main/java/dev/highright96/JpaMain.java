@@ -23,7 +23,7 @@ public class JpaMain {
         tx.begin();
         try {
 
-            valueTypeCollection(em);
+
 
             tx.commit();
         } catch (Exception e) {
@@ -34,6 +34,19 @@ public class JpaMain {
         }
 
         emf.close();
+    }
+
+    private static void jqplIntro(EntityManager em) {
+        // jpql
+        em.createQuery(
+                "select m from Member m where m.name like '%kim%'",
+                Member.class
+        ).getResultList();
+
+            /* native query -> 영속성 컨텍스트에서 플러시가 일어나 db에 저장되어야하기 때문에 자동으로 flush 가 일어남.
+            em.flush(); 자동
+            */
+        em.createNativeQuery("select MEMBER_ID, city, street from MEMBER").getResultList();
     }
 
     private static void valueTypeCollection(EntityManager em) {

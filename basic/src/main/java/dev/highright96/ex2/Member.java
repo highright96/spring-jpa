@@ -40,16 +40,6 @@ public class Member extends BaseEntity {
     @Embedded
     private Address homeAddress;
 
-    //직장 주소
-    @Embedded
-    @AttributeOverrides({
-            @AttributeOverride(name = "city", column = @Column(name = "work_city")),
-            @AttributeOverride(name = "street", column = @Column(name = "work_street")),
-            @AttributeOverride(name = "zipcode", column = @Column(name = "work_zipcode"))
-    })
-    private Address workAddress;
-
-
     @ElementCollection
     @CollectionTable(name = "FAVORITE_FOOD", joinColumns = @JoinColumn(name = "MEMBER_ID"))
     @Column(name = "FOOD_NAME")
@@ -57,7 +47,6 @@ public class Member extends BaseEntity {
 
     /*
     복잡한 관계는 갑 타입보다 일대다 관계(엔티티 매핑)를 추천
-
     @ElementCollection
     @CollectionTable(name = "ADDRESS_HISTORY", joinColumns = @JoinColumn(name = "MEMBER_ID"))
     private List<Address> addressHistory = new ArrayList<>();
@@ -66,4 +55,14 @@ public class Member extends BaseEntity {
     @JoinColumn(name = "MEMBER_ID")
     private List<AddressEntity> addressHistory = new ArrayList<>();
 
+    /*
+    직장 주소
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "city", column = @Column(name = "work_city")),
+            @AttributeOverride(name = "street", column = @Column(name = "work_street")),
+            @AttributeOverride(name = "zipcode", column = @Column(name = "work_zipcode"))
+    })
+    private Address workAddress;
+    */
 }

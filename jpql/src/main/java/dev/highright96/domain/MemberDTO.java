@@ -1,4 +1,4 @@
-package dev.highright96.jpql;
+package dev.highright96.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

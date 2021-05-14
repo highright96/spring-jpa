@@ -1,4 +1,4 @@
-package dev.highright96.jpql;
+package dev.highright96.domain;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -19,6 +19,6 @@ public class Product {
     private Long id;
     private String name;
     private int price;
-    private int stock;
+    private int stockAmount;
 
 }

@@ -1,4 +1,4 @@
-package dev.highright96.jpql1;
+package dev.highright96.basic;
 
 import javax.persistence.EntityManager;
 import java.util.List;

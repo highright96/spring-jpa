@@ -1,4 +1,4 @@
-package dev.highright96.jpql1;
+package dev.highright96.basic;
 
 import dev.highright96.domain.Address;
 import dev.highright96.domain.Member;
@@ -41,7 +41,7 @@ public class Projection {
         System.out.println("age : " + o[1]);
 
         // 방법2(추천)
-        List<MemberDTO> memberDTOS = em.createQuery("select new dev.highright96.jpql1.MemberDTO(m.username, m.age) from Member m")
+        List<MemberDTO> memberDTOS = em.createQuery("select new dev.highright96.basic.MemberDTO(m.username, m.age) from Member m")
                 .getResultList();
 
         MemberDTO memberDTO = memberDTOS.get(0);

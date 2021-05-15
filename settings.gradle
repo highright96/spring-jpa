@@ -1,5 +1,5 @@
-rootProject.name = 'jpashop'
-include 'advanced'
-include 'basic'
+rootProject.name = 'spring-jpa'
+include 'jpashop'
+include 'jpa'
 include 'jpql'
 

@@ -1,4 +1,4 @@
-package dev.highright96.jpql1;
+package dev.highright96.basic;
 
 import dev.highright96.domain.Member;
 

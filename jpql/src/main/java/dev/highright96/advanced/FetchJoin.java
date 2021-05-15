@@ -1,4 +1,4 @@
-package dev.highright96.jpql2;
+package dev.highright96.advanced;
 
 import dev.highright96.domain.Member;
 import dev.highright96.domain.Team;

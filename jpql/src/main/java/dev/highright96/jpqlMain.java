@@ -16,7 +16,7 @@ public class jpqlMain {
         tx.begin();
         try {
 
-            init(em);
+            init(em);;
 
             tx.commit();
         } catch (Exception e) {
@@ -41,7 +41,7 @@ public class jpqlMain {
         for (int i = 0; i < 5; i++) {
             Member member = new Member();
             member.setUsername("member" + i);
-            member.setAge(i);
+            member.setAge(10);
             member.changeTeam(team1);
             em.persist(member);
         }
@@ -49,7 +49,7 @@ public class jpqlMain {
         for (int i = 5; i < 11; i++) {
             Member member = new Member();
             member.setUsername("member" + i);
-            member.setAge(i);
+            member.setAge(20);
             member.changeTeam(team2);
             em.persist(member);
         }

@@ -1,4 +1,4 @@
-package dev.highright96.jpql;
+package dev.highright96.jpql1;
 
 import dev.highright96.domain.Member;
 
@@ -6,7 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
-public class JpqlBasic {
+public class Basic {
 
     public static void jpqlBasic(EntityManager em) {
         // 반환 타입이 확실

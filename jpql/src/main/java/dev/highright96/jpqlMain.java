@@ -4,6 +4,7 @@ import dev.highright96.domain.Member;
 import dev.highright96.domain.Team;
 
 import javax.persistence.*;
+import java.util.Collection;
 import java.util.List;
 
 public class jpqlMain {
@@ -29,16 +30,31 @@ public class jpqlMain {
     }
 
     private static void init(EntityManager em) {
-        Team team = new Team();
-        team.setName("teamA");
-        em.persist(team);
+        Team team1 = new Team();
+        team1.setName("teamA");
+        em.persist(team1);
 
-        for (int i = 0; i < 1; i++) {
+        Team team2 = new Team();
+        team2.setName("teamB");
+        em.persist(team2);
+
+        for (int i = 0; i < 5; i++) {
             Member member = new Member();
             member.setUsername("member" + i);
             member.setAge(i);
-            member.changeTeam(team);
+            member.changeTeam(team1);
             em.persist(member);
         }
+
+        for (int i = 5; i < 11; i++) {
+            Member member = new Member();
+            member.setUsername("member" + i);
+            member.setAge(i);
+            member.changeTeam(team2);
+            em.persist(member);
+        }
+
+        em.flush();
+        em.clear();
     }
 }

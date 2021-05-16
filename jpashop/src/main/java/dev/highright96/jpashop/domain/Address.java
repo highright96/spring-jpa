@@ -8,7 +8,8 @@ public class Address {
     public String street;
     public String zipcode;
 
-    protected Address(){
+    // 상속 받은 클래스들만 생성할 수 있게 제한
+    protected Address() {
     }
 
     public Address(String city, String street, String zipcode) {

@@ -6,9 +6,13 @@ import dev.highright96.jpashop.domain.OrderItem;
 import dev.highright96.jpashop.domain.OrderStatus;
 import dev.highright96.jpashop.repository.OrderRepository;
 import dev.highright96.jpashop.repository.OrderSearch;
+import dev.highright96.jpashop.repository.order.query.OrderItemQueryDto;
+import dev.highright96.jpashop.repository.order.query.OrderQueryDto;
+import dev.highright96.jpashop.repository.order.query.OrderQueryRepository;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDateTime;
@@ -23,6 +27,8 @@ import java.util.stream.Collectors;
 public class OrderApiController {
 
     private final OrderRepository orderRepository;
+
+    private final OrderQueryRepository orderQueryRepository;
 
     /**
      * V1. 엔티티 직접 노출
@@ -56,12 +62,25 @@ public class OrderApiController {
      * V3. 엔티티를 조회해서 DTO 로 변환(fetch join 사용O)
      * 일대다 관계에서 페치 조인을 사용하면 중복된 엔티티가 반환된다. 페이징도 할 수 없다.
      * DB 입장에서는 Order_id(일)이 여러 row 가 나오는 것이 맞다.
-     * 하지만 쿼리 결과를 엔티티(객체)로 바꿔줄 때 문제가 생긴다. 동일한 Order 엔티티(객체)가 여러개 생겨 중복된 결과를 반환한다.
+     * 하지만 쿼리 결과를 엔티티(객체)로 바꿔줄 때 문제가 생긴다. 기준이 되는 Order 엔티티(객체)가 동일하게 반복되어 생겨 중복된 결과를 반환한다.
      * - 페이징 시에는 N 부분을 포기해야함(대신에 batch fetch size? 옵션 주면 N -> 1 쿼리로 변경 가능)
      */
     @GetMapping("/api/v3/orders")
     public List<OrderDto> orderV3() {
         List<Order> all = orderRepository.findAllWithItem();
+        return all.stream().map(OrderDto::new).collect(Collectors.toList());
+    }
+
+
+    /**
+     * V3.1 엔티티를 조회해서 DTO로 변환 페이징 고려
+     * - ToOne 관계만 우선 모두 페치 조인으로 최적화
+     * - 컬렉션 관계는 hibernate.default_batch_fetch_size, @BatchSize로 최적화
+     */
+    @GetMapping("/api/v3.1/orders")
+    public List<OrderDto> orderV3_page(@RequestParam(value = "offset", defaultValue = "0") int offset,
+                                       @RequestParam(value = "limit", defaultValue = "0") int limit) {
+        List<Order> all = orderRepository.findAllWithMemberDelivery(offset, limit);
         return all.stream().map(OrderDto::new).collect(Collectors.toList());
     }
 
@@ -97,6 +116,11 @@ public class OrderApiController {
             orderPrice = orderItem.getOrderPrice();
             count = orderItem.getCount();
         }
+    }
+
+    @GetMapping("/api/v4/orders")
+    public List<OrderQueryDto> orderV4() {
+        return orderQueryRepository.findOrderQueryDtos();
     }
 }
 

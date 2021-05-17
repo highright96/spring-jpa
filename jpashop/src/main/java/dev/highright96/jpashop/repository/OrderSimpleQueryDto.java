@@ -1,7 +1,6 @@
 package dev.highright96.jpashop.repository;
 
 import dev.highright96.jpashop.domain.Address;
-import dev.highright96.jpashop.domain.Order;
 import dev.highright96.jpashop.domain.OrderStatus;
 import lombok.Data;
 

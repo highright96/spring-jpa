@@ -2,6 +2,7 @@ package dev.highright96.jpashop.repository;
 
 import dev.highright96.jpashop.domain.Member;
 import dev.highright96.jpashop.domain.Order;
+import dev.highright96.jpashop.repository.order.query.OrderFlatDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
